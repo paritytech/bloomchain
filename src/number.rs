@@ -1,1 +1,1 @@
-pub struct Number(usize);
+pub type Number = usize;

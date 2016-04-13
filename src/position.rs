@@ -1,6 +1,5 @@
-
+#[derive(Debug, PartialEq, Eq, Hash)]
 pub struct Position {
-	file: usize,
-	level: usize,
-	index: usize,
+	pub level: usize,
+	pub index: usize,
 }

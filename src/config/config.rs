@@ -54,7 +54,6 @@ impl Config {
 
 #[cfg(test)]
 mod tests {
-	use std::mem;
 	use super::Config;
 
 	fn raw_config() {
