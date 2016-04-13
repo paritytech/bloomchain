@@ -1,11 +1,11 @@
 use std::mem;
 use std::io::{Read, Write};
-use error::Error;
+use super::Error;
 
 // Config size in bytes.
 const CONFIG_SIZE: usize = 24;
 
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Clone)]
 pub struct Config {
 	/// Number of levels.
 	pub levels: usize,
@@ -32,7 +32,7 @@ impl Config {
 		let len = try!(raw.read(&mut buffer));
 		match len == CONFIG_SIZE {
 			true => Ok(unsafe { mem::transmute(buffer) }),
-			false => Err(Error::LoadingConfigFailed)
+			false => Err(Error::Loading)
 		}
 	}
 
@@ -47,7 +47,7 @@ impl Config {
 		let len = try!(buf.write(self.raw()));
 		match len == CONFIG_SIZE {
 			true => Ok(()),
-			false => Err(Error::SavingConfigFailed)
+			false => Err(Error::Saving)
 		}
 	}
 }
