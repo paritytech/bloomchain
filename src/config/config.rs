@@ -16,7 +16,7 @@ pub struct Config {
 impl Default for Config {
 	fn default() -> Self {
 		Config {
-			levels: 1,
+			levels: 3,
 			elements_per_index: 16,
 		}
 	}
