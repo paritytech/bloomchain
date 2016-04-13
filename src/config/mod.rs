@@ -23,7 +23,7 @@ mod tests {
 	#[test]
 	fn config_validation() {
 		let mut dir = env::temp_dir();
-		dir.push("chaindbx.cfg");
+		dir.push("chaindbxw.cfg");
 		validate_config(Config::default(), dir).unwrap();
 	}
 }

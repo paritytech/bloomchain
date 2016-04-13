@@ -2,6 +2,7 @@
 pub mod bloom;
 pub mod chain;
 pub mod database;
+pub mod group;
 // t?
 pub mod size;
 pub mod number;
