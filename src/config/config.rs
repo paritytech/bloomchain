@@ -3,7 +3,7 @@ use std::io::{Read, Write};
 use super::Error;
 
 // Config size in bytes.
-const CONFIG_SIZE: usize = 24;
+const CONFIG_SIZE: usize = 16;
 
 #[derive(Debug, PartialEq, Clone)]
 pub struct Config {
@@ -11,8 +11,6 @@ pub struct Config {
 	pub levels: usize,
 	/// Number of elements in a single index.
 	pub elements_per_index: usize,
-	/// Number of indexes in a single file.
-	pub indexes_per_file: usize,
 }
 
 impl Default for Config {
@@ -20,7 +18,6 @@ impl Default for Config {
 		Config {
 			levels: 1,
 			elements_per_index: 16,
-			indexes_per_file: 10_000,
 		}
 	}
 }
