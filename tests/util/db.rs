@@ -8,10 +8,7 @@ pub struct BloomMemoryDatabase {
 }
 
 impl BloomMemoryDatabase {
-	pub fn insert(&mut self, position: Position, bloom: Bloom) {
-		self.mem.insert(position, bloom);
-	}
-
+	#[allow(dead_code)]
 	pub fn insert_blooms(&mut self, blooms: HashMap<Position, Bloom>) {
 		self.mem.extend(blooms);
 	}
@@ -29,10 +26,7 @@ pub struct BloomGroupMemoryDatabase {
 }
 
 impl BloomGroupMemoryDatabase {
-	pub fn insert(&mut self, position: GroupPosition, group: BloomGroup) {
-		self.mem.insert(position, group);
-	}
-
+	#[allow(dead_code)]
 	pub fn insert_blooms(&mut self, groups: HashMap<GroupPosition, BloomGroup>) {
 		self.mem.extend(groups);
 	}
