@@ -13,4 +13,4 @@ pub use self::chain::BloomGroupChain;
 
 pub use self::database::BloomGroupDatabase;
 pub use self::group::BloomGroup;
-pub use self::position::{Position, GroupPosition};
+pub use self::position::GroupPosition;
