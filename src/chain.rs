@@ -150,17 +150,3 @@ impl<'a> BloomChain<'a> {
 		blocks
 	}
 }
-
-#[cfg(test)]
-mod tests {
-	use config::Config;
-	use database::memory::Memory;
-	use super::*;
-
-	#[test]
-	fn manager_with_noop_bridge() {
-		let memory = Memory::default();
-		let manager = BloomChain::new(Config::default(), &memory);
-	}
-}
-

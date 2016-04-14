@@ -4,3 +4,7 @@ version = "0.1.0"
 authors = ["debris <marek.kotewicz@gmail.com>"]
 
 [dependencies]
+
+[dev-dependencies]
+rustc-serialize = "0.3"
+tiny-keccak = "1.0"

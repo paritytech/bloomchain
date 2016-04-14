@@ -1,7 +1,3 @@
-mod bridge;
-pub mod memory;
-
-pub use self::bridge::GroupDatabaseBridge;
 use group::{GroupPosition, BloomGroup};
 
 /// Readonly `BloomGroup` database.

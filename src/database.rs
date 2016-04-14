@@ -1,5 +1,3 @@
-pub mod memory;
-
 use position::Position;
 use bloom::Bloom;
 
