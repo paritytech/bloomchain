@@ -18,8 +18,7 @@ pub struct BloomGroupChain<'a> {
 
 impl<'a> BloomGroupChain<'a> {
 	pub fn new(config: Config, db: &'a BloomGroupDatabase) -> Self {
-		let positioner = PositionManager::new(config.elements_per_index);
-		let bridge = GroupDatabaseBridge::new(positioner, db);
+		let bridge = GroupDatabaseBridge::new(config, db);
 
 		BloomGroupChain {
 			config: config,

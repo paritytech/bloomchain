@@ -1,4 +1,5 @@
 use bloom::Bloom;
+use config::Config;
 use database::BloomDatabase;
 use position::Position;
 use group::position::Manager as PositionManager;
@@ -11,7 +12,9 @@ pub struct GroupDatabaseBridge<'a> {
 }
 
 impl<'a> GroupDatabaseBridge<'a> {
-	pub fn new(positioner: PositionManager, db: &'a BloomGroupDatabase) -> Self {
+	pub fn new(config: Config, db: &'a BloomGroupDatabase) -> Self {
+		let positioner = PositionManager::new(config.elements_per_index);
+
 		GroupDatabaseBridge {
 			positioner: positioner,
 			db: db,
