@@ -4,6 +4,12 @@ use std::ops::BitOr;
 /// 2048 bits long hash.
 pub struct Bloom([u8; 256]);
 
+impl From<[u8; 256]> for Bloom {
+	fn from(bytes: [u8; 256]) -> Self {
+		Bloom(bytes)
+	}
+}
+
 impl Default for Bloom {
 	fn default() -> Self {
 		Bloom(unsafe { mem::zeroed() })

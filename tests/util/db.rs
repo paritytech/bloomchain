@@ -11,6 +11,10 @@ impl BloomMemoryDatabase {
 	pub fn insert(&mut self, position: Position, bloom: Bloom) {
 		self.mem.insert(position, bloom);
 	}
+
+	pub fn insert_blooms(&mut self, blooms: HashMap<Position, Bloom>) {
+		self.mem.extend(blooms);
+	}
 }
 
 impl BloomDatabase for BloomMemoryDatabase {
@@ -27,6 +31,10 @@ pub struct BloomGroupMemoryDatabase {
 impl BloomGroupMemoryDatabase {
 	pub fn insert(&mut self, position: GroupPosition, group: BloomGroup) {
 		self.mem.insert(position, group);
+	}
+
+	pub fn insert_blooms(&mut self, groups: HashMap<GroupPosition, BloomGroup>) {
+		self.mem.extend(groups);
 	}
 }
 

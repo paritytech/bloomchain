@@ -7,4 +7,3 @@ authors = ["debris <marek.kotewicz@gmail.com>"]
 
 [dev-dependencies]
 rustc-serialize = "0.3"
-tiny-keccak = "1.0"
