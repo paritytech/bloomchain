@@ -1,9 +1,10 @@
 use bloom::Bloom;
 use database::BloomDatabase;
 use position::Position;
-use group::Manager as PositionManager;
+use group::position::Manager as PositionManager;
 use super::BloomGroupDatabase;
 
+/// Bridge between `BloomDatabase` and `BloomGroupDatabase`.
 pub struct GroupDatabaseBridge<'a> {
 	positioner: PositionManager,	
 	db: &'a BloomGroupDatabase,

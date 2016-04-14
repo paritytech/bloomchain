@@ -6,8 +6,10 @@ use config::Config;
 use number::Number;
 use filter::Filter;
 use position::Position as BloomPosition;
-use super::{GroupDatabaseBridge, BloomGroupDatabase, Manager as PositionManager, BloomGroup, GroupPosition};
+use super::{GroupDatabaseBridge, BloomGroupDatabase, BloomGroup, GroupPosition};
+use super::position::Manager as PositionManager;
 
+/// Performs all bloom database operations using `BloomGroup`s.
 pub struct BloomGroupChain<'a> {
 	config: Config,
 	db: &'a BloomGroupDatabase,

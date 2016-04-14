@@ -1,8 +1,16 @@
-pub mod bloom;
-pub mod chain;
-pub mod database;
+mod bloom;
+mod chain;
+mod config;
+mod database;
 pub mod group;
-pub mod number;
-pub mod position;
-pub mod config;
-pub mod filter;
+mod number;
+mod position;
+mod filter;
+
+pub use bloom::Bloom;
+pub use chain::BloomChain;
+pub use config::Config;
+pub use database::BloomDatabase;
+pub use number::Number;
+pub use position::Position;
+pub use filter::Filter;

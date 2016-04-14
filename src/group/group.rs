@@ -1,6 +1,6 @@
 use bloom::Bloom;
 
-/// Group of blooms that were in the same index.
+/// Group of blooms that are in the same index.
 #[derive(Clone)]
 pub struct BloomGroup {
 	pub blooms: Vec<Bloom>,

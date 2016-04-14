@@ -1,3 +1,4 @@
+/// `BloomChain` configuration.
 #[derive(Debug, PartialEq, Clone, Copy)]
 pub struct Config {
 	/// Number of levels.
