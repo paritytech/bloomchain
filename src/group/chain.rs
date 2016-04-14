@@ -8,18 +8,18 @@ use filter::Filter;
 use position::Position as BloomPosition;
 use super::{GroupDatabaseBridge, BloomGroupDatabase, Manager as PositionManager, BloomGroup, GroupPosition};
 
-pub struct GroupBloomChain<'a> {
+pub struct BloomGroupChain<'a> {
 	config: Config,
 	db: &'a BloomGroupDatabase,
 	bridge: GroupDatabaseBridge<'a>,
 }
 
-impl<'a> GroupBloomChain<'a> {
+impl<'a> BloomGroupChain<'a> {
 	pub fn new(config: Config, db: &'a BloomGroupDatabase) -> Self {
 		let positioner = PositionManager::new(config.elements_per_index);
 		let bridge = GroupDatabaseBridge::new(positioner, db);
 
-		GroupBloomChain {
+		BloomGroupChain {
 			config: config,
 			db: db,
 			bridge: bridge,
