@@ -3,6 +3,8 @@
 pub mod database;
 pub mod position;
 pub mod group;
+pub mod chain;
 
 pub use self::position::{Position, GroupPosition, Manager};
+pub use self::database::{GroupDatabaseBridge, BloomGroupDatabase};
 pub use self::group::BloomGroup;

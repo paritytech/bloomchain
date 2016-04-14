@@ -10,6 +10,15 @@ pub struct GroupDatabaseBridge<'a> {
 	db: &'a BloomGroupDatabase,
 }
 
+impl<'a> GroupDatabaseBridge<'a> {
+	pub fn new(positioner: PositionManager, db: &'a BloomGroupDatabase) -> Self {
+		GroupDatabaseBridge {
+			positioner: positioner,
+			db: db,
+		}
+	}
+}
+
 impl<'a> BloomDatabase for GroupDatabaseBridge<'a> {
 	fn bloom_at(&self, position: &Position) -> Option<Bloom> {
 		let position = self.positioner.position(position);

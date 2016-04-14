@@ -1,5 +1,6 @@
 pub mod bridge;
 
+pub use self::bridge::GroupDatabaseBridge;
 use group::{GroupPosition, BloomGroup};
 
 pub trait BloomGroupDatabase {
