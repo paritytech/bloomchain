@@ -1,5 +1,4 @@
 use bloom::Bloom;
-use config::Config;
 use database::BloomDatabase;
 use position::Position;
 use group::Manager as PositionManager;

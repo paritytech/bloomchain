@@ -2,15 +2,13 @@ use super::{Position, GroupPosition};
 use position::Position as BloomPosition;
 
 pub struct Manager {
-	index_size: usize,
-	levels: usize,
+	index_size: usize
 }
 
 impl Manager {
-	pub fn new(index_size: usize, levels: usize) -> Self {
+	pub fn new(index_size: usize) -> Self {
 		Manager {
-			index_size: index_size,
-			levels: levels,
+			index_size: index_size
 		}
 	}
 

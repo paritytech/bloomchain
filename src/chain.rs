@@ -1,9 +1,7 @@
 use std::collections::{HashMap, HashSet};
-use std::marker::PhantomData;
 use std::ops::Range;
 use number::Number;
 use position::{Position, Manager as PositionManager};
-use error::Error;
 use bloom::Bloom;
 use filter::Filter;
 use config::Config;
@@ -11,7 +9,6 @@ use database::BloomDatabase;
 
 /// Prepares all bloom database operations.
 pub struct BloomChain<'a> {
-	config: Config,
 	positioner: PositionManager,
 	db: &'a BloomDatabase,
 }
@@ -22,7 +19,6 @@ impl<'a> BloomChain<'a> {
 		let positioner = PositionManager::new(config.elements_per_index, config.levels);
 
 		BloomChain {
-			config: config,
 			positioner: positioner,
 			db: db,
 		}

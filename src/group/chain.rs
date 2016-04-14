@@ -6,7 +6,7 @@ use config::Config;
 use number::Number;
 use filter::Filter;
 use position::Position as BloomPosition;
-use super::{GroupDatabaseBridge, BloomGroupDatabase, Manager as PositionManager, Position, BloomGroup, GroupPosition};
+use super::{GroupDatabaseBridge, BloomGroupDatabase, Manager as PositionManager, BloomGroup, GroupPosition};
 
 pub struct GroupBloomChain<'a> {
 	config: Config,
@@ -16,7 +16,7 @@ pub struct GroupBloomChain<'a> {
 
 impl<'a> GroupBloomChain<'a> {
 	pub fn new(config: Config, db: &'a BloomGroupDatabase) -> Self {
-		let positioner = PositionManager::new(config.elements_per_index, config.levels);
+		let positioner = PositionManager::new(config.elements_per_index);
 		let bridge = GroupDatabaseBridge::new(positioner, db);
 
 		GroupBloomChain {
@@ -27,7 +27,7 @@ impl<'a> GroupBloomChain<'a> {
 	}
 
 	fn group_blooms(&self, blooms: HashMap<BloomPosition, Bloom>) -> HashMap<GroupPosition, BloomGroup> {
-		let positioner = PositionManager::new(self.config.elements_per_index, self.config.levels);
+		let positioner = PositionManager::new(self.config.elements_per_index);
 		blooms.into_iter()
 			.fold(HashMap::new(), | mut acc, (position, bloom) | {
 				{
@@ -46,24 +46,24 @@ impl<'a> GroupBloomChain<'a> {
 	}
 
 	pub fn insert(&self, number: Number, bloom: Bloom) -> HashMap<GroupPosition, BloomGroup> {
-		let bloom_chain = BloomChain::new(self.config.clone(), &self.bridge);
+		let bloom_chain = BloomChain::new(self.config, &self.bridge);
 		let modified_blooms = bloom_chain.insert(number, bloom);
 		self.group_blooms(modified_blooms)
 	}
 
 	pub fn replace(&self, range: &Range<Number>, blooms: Vec<Bloom>) -> HashMap<GroupPosition, BloomGroup> {
-		let bloom_chain = BloomChain::new(self.config.clone(), &self.bridge);
+		let bloom_chain = BloomChain::new(self.config, &self.bridge);
 		let modified_blooms = bloom_chain.replace(range, blooms);
 		self.group_blooms(modified_blooms)
 	}
 
 	pub fn with_bloom(&self, range: &Range<Number>, bloom: &Bloom) -> Vec<Number> {
-		let bloom_chain = BloomChain::new(self.config.clone(), &self.bridge);
+		let bloom_chain = BloomChain::new(self.config, &self.bridge);
 		bloom_chain.with_bloom(range, bloom)
 	}
 
 	pub fn filter(&self, filter: &Filter) -> Vec<Number> {
-		let bloom_chain = BloomChain::new(self.config.clone(), &self.bridge);
+		let bloom_chain = BloomChain::new(self.config, &self.bridge);
 		bloom_chain.filter(filter)
 	}
 }
