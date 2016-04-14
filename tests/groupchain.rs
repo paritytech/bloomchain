@@ -10,44 +10,25 @@ use util::{BloomGroupMemoryDatabase, FromHex, for_each_bloom};
 #[test]
 fn simele_bloom_group_search() {
 	let config = Config::default();
-	let mut cache = BloomGroupMemoryDatabase::default();
+	let mut db = BloomGroupMemoryDatabase::default();
 	let bloom = Bloom::from_hex("00000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002020000000000000000000000000000000000000000000008000000001000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000");
 
 	let modified_blooms = {
-		let chain = BloomGroupChain::new(config, &cache);
+		let chain = BloomGroupChain::new(config, &db);
 		let block_number = 23;
 		chain.insert(block_number, bloom.clone())
 	};
 
 	// number of modified blooms should always be equal number of levels
 	assert_eq!(modified_blooms.len(), config.levels);
-	cache.insert_blooms(modified_blooms);
+	db.insert_blooms(modified_blooms);
 
-	{
-		let chain = BloomGroupChain::new(config, &cache);
-		let blocks = chain.with_bloom(&(0..100), &bloom);
-		assert_eq!(blocks.len(), 1);
-		assert_eq!(blocks[0], 23);
-	}
 
-	{
-		let chain = BloomGroupChain::new(config, &cache);
-		let blocks = chain.with_bloom(&(0..22), &bloom);
-		assert_eq!(blocks.len(), 0);
-	}
-
-	{
-		let chain = BloomGroupChain::new(config, &cache);
-		let blocks = chain.with_bloom(&(23..23), &bloom);
-		assert_eq!(blocks.len(), 1);
-		assert_eq!(blocks[0], 23);
-	}
-
-	{
-		let chain = BloomGroupChain::new(config, &cache);
-		let blocks = chain.with_bloom(&(24..100), &bloom);
-		assert_eq!(blocks.len(), 0);
-	}
+	let chain = BloomGroupChain::new(config, &db);
+	assert_eq!(chain.with_bloom(&(0..100), &bloom), vec![23]);
+	assert_eq!(chain.with_bloom(&(0..22), &bloom), vec![]);
+	assert_eq!(chain.with_bloom(&(23..23), &bloom), vec![23]);
+	assert_eq!(chain.with_bloom(&(24..100), &bloom), vec![]);
 }
 
 #[test]

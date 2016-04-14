@@ -22,31 +22,11 @@ fn simple_bloom_search() {
 	assert_eq!(modified_blooms.len(), config.levels);
 	db.insert_blooms(modified_blooms);
 
-	{
-		let chain = BloomChain::new(config, &db);
-		let blocks = chain.with_bloom(&(0..100), &bloom);
-		assert_eq!(blocks.len(), 1);
-		assert_eq!(blocks[0], 23);
-	}
-
-	{
-		let chain = BloomChain::new(config, &db);
-		let blocks = chain.with_bloom(&(0..22), &bloom);
-		assert_eq!(blocks.len(), 0);
-	}
-
-	{
-		let chain = BloomChain::new(config, &db);
-		let blocks = chain.with_bloom(&(23..23), &bloom);
-		assert_eq!(blocks.len(), 1);
-		assert_eq!(blocks[0], 23);
-	}
-
-	{
-		let chain = BloomChain::new(config, &db);
-		let blocks = chain.with_bloom(&(24..100), &bloom);
-		assert_eq!(blocks.len(), 0);
-	}
+	let chain = BloomChain::new(config, &db);
+	assert_eq!(chain.with_bloom(&(0..100), &bloom), vec![23]);
+	assert_eq!(chain.with_bloom(&(0..22), &bloom), vec![]);
+	assert_eq!(chain.with_bloom(&(23..23), &bloom), vec![23]);
+	assert_eq!(chain.with_bloom(&(24..100), &bloom), vec![]);
 }
 
 #[test]
