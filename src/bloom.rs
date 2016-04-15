@@ -10,6 +10,12 @@ impl From<[u8; 256]> for Bloom {
 	}
 }
 
+impl Into<[u8; 256]> for Bloom {
+	fn into(self) -> [u8; 256] {
+		self.0
+	}
+}
+
 impl Default for Bloom {
 	fn default() -> Self {
 		Bloom(unsafe { mem::zeroed() })
