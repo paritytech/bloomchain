@@ -30,7 +30,7 @@ impl Manager {
 		}
 	}
 
-	/// unsafely get level size.
+	/// Unsafely get level size.
 	pub fn level_size(&self, level: usize) -> usize {
 		self.level_sizes[level as usize]
 	}

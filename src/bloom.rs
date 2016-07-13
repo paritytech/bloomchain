@@ -1,4 +1,3 @@
-use std::{mem, ptr};
 use std::ops::BitOr;
 
 /// 2048 bits long hash.
@@ -18,16 +17,14 @@ impl Into<[u8; 256]> for Bloom {
 
 impl Default for Bloom {
 	fn default() -> Self {
-		Bloom(unsafe { mem::zeroed() })
+		Bloom([0u8; 256])
 	}
 }
 
 impl Clone for Bloom {
 	fn clone(&self) -> Self {
 		let mut bloom = Bloom::default();
-		unsafe {
-			ptr::copy(self.0.as_ptr(), bloom.0.as_mut_ptr(), self.0.len());
-		}
+		bloom.0.copy_from_slice(&self.0);
 		bloom
 	}
 }

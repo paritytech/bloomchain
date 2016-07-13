@@ -4,7 +4,7 @@ extern crate rustc_serialize;
 mod util;
 
 use bloomchain::{Bloom, BloomChain, Config};
-use util::{BloomMemoryDatabase, FromHex, for_each_bloom};
+use util::{BloomMemoryDatabase, FromHex, for_each_bloom, generate_n_random_blooms};
 
 #[test]
 fn simple_bloom_search() {
@@ -141,4 +141,30 @@ fn file_test_bloom_search() {
 		assert_eq!(blocks.len(), 1);
 		assert_eq!(blocks[0], block_number);
 	});
+}
+
+#[test]
+fn random_bloom_replacement() {
+	let insertions = 10_000;
+
+	let config = Config::default();
+	let mut db = BloomMemoryDatabase::default();
+	let blooms = generate_n_random_blooms(insertions);
+
+	for (i, bloom) in blooms.iter().enumerate() {
+
+		let modified_blooms = {
+			let chain = BloomChain::new(config, &db);
+			chain.replace(&(i..i), vec![bloom.clone()])
+		};
+
+		db.insert_blooms(modified_blooms);
+	}
+
+	for (i, bloom) in blooms.iter().enumerate() {
+		let chain = BloomChain::new(config, &db);
+		let blocks = chain.with_bloom(&(i..i), bloom);
+		assert_eq!(blocks.len(), 1);
+		assert_eq!(blocks[0], i);
+	}
 }
