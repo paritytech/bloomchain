@@ -1,4 +1,3 @@
-use std::ptr;
 use rustc_serialize::hex::FromHex as RustcFromHex;
 use bloomchain::Bloom;
 
@@ -11,9 +10,7 @@ impl FromHex for Bloom {
 		let mut res = [0u8; 256];
 		let v = s.from_hex().unwrap();
 		assert_eq!(res.len(), v.len());
-		unsafe {
-			ptr::copy(v.as_ptr(), res.as_mut_ptr(), res.len());
-		}
-		From::from(res)
+		res.copy_from_slice(&v);
+		res.into()
 	}
 }

@@ -1,7 +1,5 @@
 extern crate bloomchain;
-extern crate rustc_serialize;
-
-mod util;
+extern crate tests_util as util;
 
 use bloomchain::{Bloom, BloomChain, Config};
 use util::{BloomMemoryDatabase, FromHex, for_each_bloom, generate_n_random_blooms};

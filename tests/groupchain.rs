@@ -1,7 +1,5 @@
 extern crate bloomchain;
-extern crate rustc_serialize;
-
-mod util;
+extern crate tests_util as util;
 
 use bloomchain::{Bloom, Config};
 use bloomchain::group::BloomGroupChain;
