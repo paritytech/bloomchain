@@ -2,12 +2,13 @@
 description = "Standalone blockchain bloom filter"
 homepage = "https://github.com/debris/bloomchain"
 name = "bloomchain"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["debris <marek.kotewicz@gmail.com>"]
 license = "MIT"
 keywords = ["ethereum", "ethcore", "bloom", "chain", "filter"]
 
 [dependencies]
+ethbloom = "0.2"
 
 [dev-dependencies]
 rustc-serialize = "0.3"

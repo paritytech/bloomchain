@@ -32,9 +32,9 @@ impl<'a> BloomChain<'a> {
 			None => return None,
 			Some(level_bloom) => match level {
 				// if we are on the lowest level
-				0 if level_bloom.contains(bloom) => return Some(vec![offset]),
+				0 if level_bloom.contains_bloom(bloom) => return Some(vec![offset]),
 				// return None if current level doesnt contain given bloom
-				_ if !level_bloom.contains(bloom) => return None,
+				_ if !level_bloom.contains_bloom(bloom) => return None,
 				// continue processing && go down
 				_ => ()
 			}
@@ -64,7 +64,10 @@ impl<'a> BloomChain<'a> {
 		for level in 0..self.positioner.levels() {
 			let position = self.positioner.position(number, level);
 			let new_bloom = match self.db.bloom_at(&position) {
-				Some(ref old_bloom) => old_bloom | &bloom,
+				Some(mut old_bloom) => {
+					old_bloom.accrue_bloom(&bloom);
+					old_bloom
+				},
 				None => bloom.clone(),
 			};
 
@@ -104,7 +107,10 @@ impl<'a> BloomChain<'a> {
 						// filter existing ones
 						.filter_map(bloom_at)
 						// BitOr all of them
-						.fold(Bloom::default(), |acc, bloom| acc | bloom)
+						.fold(Bloom::default(), |mut acc, bloom| {
+							acc.accrue_bloom(&bloom);
+							acc
+						})
 				};
 
 				result.insert(index, new_bloom);
