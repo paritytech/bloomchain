@@ -11,6 +11,6 @@ impl FromHex for Bloom {
 		let v = s.from_hex().unwrap();
 		assert_eq!(res.len(), v.len());
 		res.copy_from_slice(&v);
-		From::from(res)
+		res.into()
 	}
 }

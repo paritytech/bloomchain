@@ -101,16 +101,13 @@ impl<'a> BloomChain<'a> {
 					// use new blooms before db blooms where necessary
 					let bloom_at = | index | { result.get(&index).cloned().or_else(|| self.db.bloom_at(&index)) };
 
-					self.positioner.lower_level_positions(&index)
-						.into_iter()
-						// get blooms
-						// filter existing ones
-						.filter_map(bloom_at)
-						// BitOr all of them
-						.fold(Bloom::default(), |mut acc, bloom| {
-							acc.accrue_bloom(&bloom);
-							acc
-						})
+					let mut acc = Bloom::default();
+					for index in self.positioner.lower_level_positions(&index) {
+						if let Some(ref bloom) = bloom_at(index) {
+							acc.accrue_bloom(bloom);
+						}
+					}
+					acc
 				};
 
 				result.insert(index, new_bloom);
