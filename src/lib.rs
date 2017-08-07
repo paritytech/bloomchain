@@ -1,4 +1,5 @@
-mod bloom;
+extern crate ethbloom as bloom;
+
 mod chain;
 mod config;
 mod database;
@@ -7,7 +8,7 @@ mod number;
 mod position;
 mod filter;
 
-pub use bloom::Bloom;
+pub use bloom::{Bloom, BloomRef, Input};
 pub use chain::BloomChain;
 pub use config::Config;
 pub use database::BloomDatabase;
